@@ -497,6 +497,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="WebConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChinookSystem\ChinookSystem.csproj">
