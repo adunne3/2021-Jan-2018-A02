@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - My ASP.NET Application</title>
-
+    <link href="css/font-awesome.css" rel="stylesheet" />
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
@@ -69,6 +69,10 @@
                                         href="~/SamplePages/ArtistAlbums.aspx"
                                         style="color:black" runat="server">
                                    List All Artist Albums</a>
+                                <a class="dropdown-item"
+                                        href="~/SamplePages/SearchByDDL.aspx"
+                                        style="color:black" runat="server">
+                                   Filter Search Demo</a>
                             </div>
                          </li>
                          <li class="nav-item">
