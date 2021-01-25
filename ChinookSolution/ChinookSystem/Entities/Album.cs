@@ -1,43 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-#region Additional Namespace
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-#endregion
 namespace ChinookSystem.Entities
 {
-    [Table("Albums")]
-    internal class Album
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    internal partial class Album
     {
         private string _ReleaseLabel;
-        [Key]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Album()
+        {
+            Tracks = new HashSet<Track>();
+        }
+
         public int AlbumId { get; set; }
-        [Required(ErrorMessage = "Title is required")]
-        [StringLength(50, ErrorMessage = "Title is limited to 60 chars")]
+
+        [Required]
+        [StringLength(160, MinimumLength =1,ErrorMessage = "Title must be less that 160 characters")]
         public string Title { get; set; }
+
         public int ArtistId { get; set; }
+
         public int ReleaseYear { get; set; }
-        [StringLength(50, ErrorMessage = "Album release label is limited to 50 chars")]
+
+        [StringLength(50)]
         public string ReleaseLabel 
         {
-            get
-            {
-                return _ReleaseLabel;
-            }
-            set
-            {
-                _ReleaseLabel = string.IsNullOrEmpty(value) ? null : value;
-            }
+            get { return _ReleaseLabel; }
+            set { _ReleaseLabel = string.IsNullOrEmpty(value) ? null : value; }
         }
-        //[NotMapped] annotations are also allowed
-        //Navigational properties
-        //This property is many to one direction (child to parent)
+
         public virtual Artist Artist { get; set; }
 
-        //one to many direction paarent to child
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Track> Tracks { get; set; }
     }
 }
