@@ -25,7 +25,7 @@
             <AlternatingItemTemplate>
                 <tr style="background-color: #FFFFFF; color: #284775;">
                     <td>
-                        <asp:Button runat="server" CommandName="Delete" Text="Delete" ID="DeleteButton" />
+                        <asp:Button runat="server" CommandName="Delete" Text="Delete" ID="DeleteButton" OnClientClick="return confirm('Are you sure wish to remove this album?')"/>
                         <asp:Button runat="server" CommandName="Edit" Text="Edit" ID="EditButton" />
                     </td>
                     <td>
@@ -33,7 +33,17 @@
                     <td>
                         <asp:Label Text='<%# Eval("Title") %>' runat="server" ID="TitleLabel" /></td>
                     <td>
-                        <asp:Label Text='<%# Eval("ArtistId") %>' runat="server" ID="ArtistIdLabel" /></td>
+                        <%--<asp:Label Text='<%# Eval("ArtistId") %>' runat="server" ID="ArtistIdLabel" />--%>
+                        <asp:DropDownList ID="ArtistList" runat="server" 
+                            DataSourceID="ArtistListODS"
+                            DataTextField="DisplayField" 
+                            DataValueField="ValueField" 
+                            selectedvalue='<%#Eval("ArtistId") %>' 
+                            Enabled="false"
+                            Width="300px">
+
+                        </asp:DropDownList>
+                    </td>
                     <td>
                         <asp:Label Text='<%# Eval("ReleaseYear") %>' runat="server" ID="ReleaseYearLabel" /></td>
                     <td>
@@ -47,11 +57,21 @@
                         <asp:Button runat="server" CommandName="Cancel" Text="Cancel" ID="CancelButton" />
                     </td>
                     <td>
-                        <asp:TextBox Text='<%# Bind("AlbumId") %>' runat="server" ID="AlbumIdTextBox" /></td>
+                        <asp:TextBox Text='<%# Bind("AlbumId") %>' runat="server" ID="AlbumIdTextBox" Enabled="false" /></td>
                     <td>
                         <asp:TextBox Text='<%# Bind("Title") %>' runat="server" ID="TitleTextBox" /></td>
                     <td>
-                        <asp:TextBox Text='<%# Bind("ArtistId") %>' runat="server" ID="ArtistIdTextBox" /></td>
+                        <asp:DropDownList ID="ArtistList" runat="server" 
+                            DataSourceID="ArtistListODS" 
+                            DataTextField="DisplayField" 
+                            DataValueField="ValueField" 
+                            selectedvalue='<%#Bind("ArtistId") %>'
+                            Enabled="true"
+                            Width="300px">
+
+                        </asp:DropDownList>
+
+                    </td>
                     <td>
                         <asp:TextBox Text='<%# Bind("ReleaseYear") %>' runat="server" ID="ReleaseYearTextBox" /></td>
                     <td>
@@ -72,11 +92,19 @@
                         <asp:Button runat="server" CommandName="Cancel" Text="Clear" ID="CancelButton" />
                     </td>
                     <td>
-                        <asp:TextBox Text='<%# Bind("AlbumId") %>' runat="server" ID="AlbumIdTextBox" /></td>
+                        <asp:TextBox Text='<%# Bind("AlbumId") %>' runat="server" ID="AlbumIdTextBox" Enabled="false"/></td>
                     <td>
                         <asp:TextBox Text='<%# Bind("Title") %>' runat="server" ID="TitleTextBox" /></td>
                     <td>
-                        <asp:TextBox Text='<%# Bind("ArtistId") %>' runat="server" ID="ArtistIdTextBox" /></td>
+                        <asp:DropDownList ID="ArtistList" runat="server" 
+                            DataSourceID="ArtistListODS" 
+                            DataTextField="DisplayField" 
+                            DataValueField="ValueField" 
+                            selectedvalue='<%#Bind("ArtistId") %>'
+                            Enabled="true"
+                            Width="300px">
+
+                        </asp:DropDownList></td>
                     <td>
                         <asp:TextBox Text='<%# Bind("ReleaseYear") %>' runat="server" ID="ReleaseYearTextBox" /></td>
                     <td>
@@ -86,7 +114,7 @@
             <ItemTemplate>
                 <tr style="background-color: #E0FFFF; color: #333333;">
                     <td>
-                        <asp:Button runat="server" CommandName="Delete" Text="Delete" ID="DeleteButton" />
+                        <asp:Button runat="server" CommandName="Delete" Text="Delete" ID="DeleteButton" OnClientClick="return confirm('Are you sure wish to remove this album?')"/>
                         <asp:Button runat="server" CommandName="Edit" Text="Edit" ID="EditButton" />
                     </td>
                     <td>
@@ -94,7 +122,15 @@
                     <td>
                         <asp:Label Text='<%# Eval("Title") %>' runat="server" ID="TitleLabel" /></td>
                     <td>
-                        <asp:Label Text='<%# Eval("ArtistId") %>' runat="server" ID="ArtistIdLabel" /></td>
+                        <asp:DropDownList ID="ArtistList" runat="server" 
+                            DataSourceID="ArtistListODS" 
+                            DataTextField="DisplayField" 
+                            DataValueField="ValueField" 
+                            selectedvalue='<%#Eval("ArtistId") %>'
+                            Enabled="false"
+                            Width="300px">
+
+                        </asp:DropDownList></td>
                     <td>
                         <asp:Label Text='<%# Eval("ReleaseYear") %>' runat="server" ID="ReleaseYearLabel" /></td>
                     <td>
@@ -108,18 +144,18 @@
                             <table runat="server" id="itemPlaceholderContainer" style="background-color: #FFFFFF; border-collapse: collapse; border-color: #999999; border-style: none; border-width: 1px; font-family: Verdana, Arial, Helvetica, sans-serif;" border="1">
                                 <tr runat="server" style="background-color: #E0FFFF; color: #333333;">
                                     <th runat="server"></th>
-                                    <th runat="server">AlbumId</th>
+                                    <th runat="server">Id</th>
                                     <th runat="server">Title</th>
-                                    <th runat="server">ArtistId</th>
-                                    <th runat="server">ReleaseYear</th>
-                                    <th runat="server">ReleaseLabel</th>
+                                    <th runat="server">Artist</th>
+                                    <th runat="server">Year</th>
+                                    <th runat="server">Label</th>
                                 </tr>
                                 <tr runat="server" id="itemPlaceholder"></tr>
                             </table>
                         </td>
                     </tr>
                     <tr runat="server">
-                        <td runat="server" style="text-align: center; background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF">
+                        <td runat="server" style="text-align: center; background-color: #808080; font-family: Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF">
                             <asp:DataPager runat="server" ID="DataPager1">
                                 <Fields>
                                     <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False"></asp:NextPreviousPagerField>
@@ -134,7 +170,7 @@
             <SelectedItemTemplate>
                 <tr style="background-color: #E2DED6; font-weight: bold; color: #333333;">
                     <td>
-                        <asp:Button runat="server" CommandName="Delete" Text="Delete" ID="DeleteButton" />
+                        <asp:Button runat="server" CommandName="Delete" Text="Delete" ID="DeleteButton" OnClientClick="return confirm('Are you sure wish to remove this album?')"/>
                         <asp:Button runat="server" CommandName="Edit" Text="Edit" ID="EditButton" />
                     </td>
                     <td>
@@ -142,7 +178,17 @@
                     <td>
                         <asp:Label Text='<%# Eval("Title") %>' runat="server" ID="TitleLabel" /></td>
                     <td>
-                        <asp:Label Text='<%# Eval("ArtistId") %>' runat="server" ID="ArtistIdLabel" /></td>
+                        <asp:DropDownList ID="ArtistList" runat="server" 
+                            DataSourceID="ArtistListODS" 
+                            DataTextField="DisplayField" 
+                            DataValueField="ValueField" 
+                            selectedvalue='<%#Eval("ArtistId") %>'
+                            Enabled="false"
+                            Width="300px">
+
+                        </asp:DropDownList>
+
+                    </td>
                     <td>
                         <asp:Label Text='<%# Eval("ReleaseYear") %>' runat="server" ID="ReleaseYearLabel" /></td>
                     <td>
@@ -159,5 +205,6 @@
             OldValuesParameterFormatString="original_{0}" 
             TypeName="ChinookSystem.BLL.AlbumController" 
            ></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ArtistListODS" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Artists_DDLList" TypeName="ChinookSystem.BLL.ArtistController"></asp:ObjectDataSource>
     </div>
 </asp:Content>
