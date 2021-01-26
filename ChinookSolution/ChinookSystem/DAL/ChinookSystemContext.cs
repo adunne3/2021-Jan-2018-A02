@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 #region additional namespaces
 using ChinookSystem.Entities;
-#region
+#endregion
 namespace ChinookSystem.DAL
 {
     internal partial class ChinookSystemContext : DbContext
